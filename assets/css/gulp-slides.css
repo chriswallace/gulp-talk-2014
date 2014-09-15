@@ -1492,6 +1492,25 @@ pre .coffeescript .javascript, pre .javascript .xml, pre .tex .formula, pre .xml
   font-weight: 700;
   src: local('Oswald Bold'), local('Oswald-Bold'), url('../fonts/oswald-bold.woff') format('woff'); }
 
+.gulp-logo {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  left: 5%;
+  top: 5%;
+  text-align: center;
+  padding: 1em;
+  z-index: -1;
+  opacity: 0.5;
+  margin: 0 auto; }
+  .gulp-logo img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    border: 0;
+    background: 0;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.15); }
+
 .reveal section {
   position: relative; }
   .reveal section, .reveal section * {
@@ -1501,6 +1520,8 @@ pre .coffeescript .javascript, pre .javascript .xml, pre .tex .formula, pre .xml
     line-height: 1.15em;
     text-transform: none;
     letter-spacing: 0.075em; }
+  .reveal section .clear {
+    clear: both; }
   .reveal section a {
     color: #2aa198; }
   .reveal section h1, .reveal section h2, .reveal section h3 {
@@ -1528,9 +1549,10 @@ pre .coffeescript .javascript, pre .javascript .xml, pre .tex .formula, pre .xml
   .reveal section p {
     margin-bottom: 0.5em; }
   .reveal section code {
-    padding: 2px 10px;
+    padding: 0 10px;
     background: #002b36;
-    color: #2aa198; }
+    color: #2aa198;
+    line-height: 1em; }
     .reveal section code.shell {
       background: green;
       color: #d9d9d9; }
@@ -1538,27 +1560,13 @@ pre .coffeescript .javascript, pre .javascript .xml, pre .tex .formula, pre .xml
     box-shadow: none;
     overflow: auto;
     padding: 0;
-    font-size: 1em; }
+    font-size: 1em;
+    line-height: 1em; }
     .reveal section pre code {
       line-height: 1.5em;
-      padding: 0 5px;
-      margin: 0; }
+      padding: 0 1em;
+      margin: 0;
+      max-height: 500px;
+      min-height: inherit; }
   .reveal section blockquote {
     padding: 10px; }
-  .reveal section .logo {
-    position: absolute;
-    width: 80%;
-    height: 80%;
-    top: 10%;
-    left: 10%;
-    text-align: center;
-    padding: 1em;
-    z-index: -1;
-    opacity: 0.65; }
-    .reveal section .logo img {
-      width: auto;
-      max-width: 100%;
-      height: auto;
-      border: 0;
-      background: 0;
-      box-shadow: 0 0 0 rgba(0, 0, 0, 0.15); }
