@@ -11,43 +11,43 @@ if( !function_exists('gulp_talk_register_scripts_styles') ):
     $js_deps = array('jquery');
 
        wp_register_script(
-	   'head-js',
-	   get_stylesheet_directory_uri() . '/assets/js/vendor/head/head.min.js',
-	   $js_deps,
-	   false,
-	   true
+	      'head-js',
+	      get_stylesheet_directory_uri() . '/assets/js/vendor/head/head.min.js',
+	      $js_deps,
+	      false,
+	      true
        );
        
        $js_deps[] = 'head-js';
        
        wp_register_script(
-	   'reveal-js',
-	   get_stylesheet_directory_uri() . '/assets/js/vendor/reveal/reveal.min.js',
-	   $js_deps,
-	   false,
-	   true
+	      'reveal-js',
+	      get_stylesheet_directory_uri() . '/assets/js/vendor/reveal/reveal.min.js',
+	      $js_deps,
+	      false,
+	      true
        );
        
        $js_deps[] = 'reveal-js';
 
        wp_register_script(
-	   'gulp-slides-js',
-	   get_stylesheet_directory_uri() . '/assets/js/gulp-slides-min.js',
-	   $js_deps,
-	   false,
-	   true
+	      'gulp-slides-js',
+	      get_stylesheet_directory_uri() . '/assets/js/gulp-slides-min.js',
+	      $js_deps,
+	      false,
+	      true
        );
 
        $WordPressVars = array(
-	    'themeDir' => get_stylesheet_directory_uri() . '/',
-	    'assetsDir' => get_stylesheet_directory_uri() . '/assets/',
+	      'themeDir' => get_stylesheet_directory_uri() . '/',
+	      'assetsDir' => get_stylesheet_directory_uri() . '/assets/',
        );
 
        wp_localize_script('gulp-slides-js', 'WordPressVars', $WordPressVars);
 
        wp_register_style(
-	   'gulp-slides-css',
-	   get_stylesheet_directory_uri() . '/assets/css/gulp-slides-min.css'
+	      'gulp-slides-css',
+	      get_stylesheet_directory_uri() . '/assets/css/gulp-slides-min.css'
        );
 
    }//end gulp_talk_register_scripts_styles function
@@ -78,8 +78,8 @@ if( !function_exists('gulp_talk_clean_wp_head') ):
 
 	    function gulp_talk_remove_all_scripts() {
 
-		global $wp_scripts;
-		$wp_scripts->queue = array('gulp-slides-js');
+		   global $wp_scripts;
+		   $wp_scripts->queue = array('gulp-slides-js');
 
 	    }//end gulp_talk_remove_all_scripts function
 	    
@@ -92,8 +92,8 @@ if( !function_exists('gulp_talk_clean_wp_head') ):
 
 	    function gulp_talk_remove_all_styles() {
 
-		global $wp_styles;
-		$wp_styles->queue = array('gulp-slides-css');
+		   global $wp_styles;
+		   $wp_styles->queue = array('gulp-slides-css');
 
 	    }//end gulp_talk_remove_all_styles function
 	    
