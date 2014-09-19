@@ -117,10 +117,10 @@
 		<section>
 		    <h1>Can you give me an example?</h1>
 
-		    <h3>gulp watches a SASS file (or glob of files) and on save:</h3>
+		    <h3>gulp watches a Sass file (or glob of files) and on save:</h3>
 
 		    <ul>
-				<li>Compiles SASS and logs errors</li>
+				<li>Compiles Sass and logs errors</li>
 				<li>Adds CSS3 browser prefixes</li>
 				<li>
 					<a href="<?php bloginfo('stylesheet_directory'); ?>/assets/css/gulp-slides.css" target="_blank">
@@ -370,7 +370,7 @@
 						// define realtive image path for "image-url"
 						imagePath: '../images'
 					}))
-					// send SASS errors to console
+					// send Sass errors to console
 					.on('error', handleErrors)
 					// add browser prefixes
 					.pipe(autoprefixer())
