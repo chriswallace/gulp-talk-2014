@@ -158,6 +158,12 @@ gulp.task('watch', ['assets'], function () {
 
 });
 
+gulp.task('copyAssets', ['assets'], function () {
+	// copy items from assets to build
+	return gulp.src('assets/**/*')
+		.pipe(gulp.dest('build'));
+});
+
 gulp.task('generateHTML', ['copyAssets'], function () {
 	
 	var phantomjs = spawn('phantomjs', ['static-slides.js'], {stdio: 'inherit'});
@@ -168,12 +174,6 @@ gulp.task('generateHTML', ['copyAssets'], function () {
 		// Keep gulp from hanging on this task
 		currentTask.emit('end');
 	});
-});
-
-gulp.task('copyAssets', ['assets'], function () {
-	// copy items from assets to build
-	return gulp.src('assets/**/*')
-		.pipe(gulp.dest('build'));
 });
 
 // Build task
