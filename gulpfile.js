@@ -1,23 +1,15 @@
 // Load plugins
 var gulp = require('gulp'),
-    sass = require('gulp-sass'),
-    minifyCss = require("gulp-minify-css"),
-    autoprefixer = require("gulp-autoprefixer"),
-    imagemin = require('gulp-imagemin'),
-    notify = require("gulp-notify"),
-    rename = require("gulp-rename"),
-    cmq = require('gulp-combine-media-queries'),
-    uglify = require('gulp-uglify'),
-    runSequence = require('gulp-run-sequence'),
-    clean = require('gulp-clean'),
-    cache = require('gulp-cache'),
+	$ = require('gulp-load-plugins')(),
+	del = require('del'),
     browserSync = require('browser-sync'),
-    reload = browserSync.reload;
+    reload = browserSync.reload,
+	spawn = require('child_process').spawn;
 
 // Error Handler
 var handleErrors = function () {
     // Send error to notification center with gulp-notify
-    notify.onError({
+    $.notify.onError({
         title: "Compile Error",
         message: "<%= error.message %>"
     }).apply(this, arguments);
@@ -28,8 +20,7 @@ var handleErrors = function () {
 
 // Set Source Files
 var srcFiles = {
-    img: 'src/images/**/*.{png,jpg,jpeg,gif}',
-    svg: 'src/images/**/*.svg',
+    img: 'src/images/**/*.{png,jpg,jpeg,gif,.svg}',
     scss: 'src/scss/**/*.scss',
     jsMain: 'src/js/gulp-slides.js',
     jsVendor: 'src/js/vendor/**/*.js',
@@ -49,26 +40,26 @@ var destPaths = {
 
 
 // Sass
-gulp.task('sass', function () {
+gulp.task('sass', ['clean'], function () {
     return gulp.src(srcFiles.scss)
-        .pipe(sass({
+        .pipe($.sass({
         // define realtive image path for "image-url"
         imagePath: '../images'
     }))
     // send SASS errors to console
     .on('error', handleErrors)
     // add browser prefixes
-    .pipe(autoprefixer())
+    .pipe($.autoprefixer())
     // Write human readable file
     .pipe(gulp.dest(destPaths.css))
     // combine media queries
-    .pipe(cmq())
+    .pipe($.combineMediaQueries())
     // minify css
-    .pipe(minifyCss({
+    .pipe($.minifyCss({
         keepSpecialComments: 1
     }))
     // add "-min"
-    .pipe(rename({
+    .pipe($.rename({
         suffix: "-min"
     }))
     // save minified file
@@ -80,18 +71,18 @@ gulp.task('sass', function () {
 });
 
 // Fonts
-gulp.task('fonts', function () {
+gulp.task('fonts', ['clean'], function () {
     return gulp.src(srcFiles.fonts)
     // don't do anything to fonts, just save 'em
     .pipe(gulp.dest(destPaths.fonts));
 });
 
 // Images
-gulp.task('images', function () {
+gulp.task('images', ['clean'], function () {
     return gulp.src(srcFiles.img)
     // use cache to only target new/changed files
     // then optimize the images
-    .pipe(cache(imagemin({
+    .pipe($.cache($.imagemin({
         progressive: true,
         interlaced: true
     })))
@@ -103,19 +94,8 @@ gulp.task('images', function () {
     }));
 });
 
-// SVG
-gulp.task('svg', function () {
-    return gulp.src(srcFiles.svg)
-    // svgs are just passing through
-    .pipe(gulp.dest(destPaths.svg))
-    // send changes to Browser-sync
-    .pipe(reload({
-        stream: true
-    }));
-});
-
 // Vendor Scripts
-gulp.task('vendorScripts', function () {
+gulp.task('vendorScripts', ['clean'], function () {
     // don't do anything to vendor scripts, just save 'em
     // we will enqueue with WordPress
     return gulp.src(srcFiles.jsVendor)
@@ -123,12 +103,12 @@ gulp.task('vendorScripts', function () {
 });
 
 // Main Script
-gulp.task('mainScript', function () {
+gulp.task('mainScript', ['clean'], function () {
     return gulp.src(srcFiles.jsMain)
     // minfiy
-    .pipe(uglify())
+    .pipe($.uglify())
     // rename to "-min"
-    .pipe(rename({
+    .pipe($.rename({
         suffix: "-min"
     }))
     // save
@@ -140,20 +120,20 @@ gulp.task('mainScript', function () {
 });
 
 // Clean
-gulp.task('assetClean', function () {
+gulp.task('clean', function (cb) {
     // deletes everything in assets directory
-    return gulp.src('assets').pipe(clean());
+    del(['./assets', './build'], cb);
 });
 
 // BrowserSync
-gulp.task('browserSync', function () {
+gulp.task('browserSync', ['assets'], function () {
     // Files to watch w/ Browser-sync
     // Typically files you aren't modifying with gulp but still want to reload
     var watchFiles = [
 		// Like PHP files
 		srcFiles.php
 	];
-
+	
     // initialize browsersync
     browserSync.init(watchFiles, {
 		// config options, such as port, go here
@@ -161,8 +141,11 @@ gulp.task('browserSync', function () {
 	});
 });
 
+// Build Task
+gulp.task('assets', ['fonts','images','vendorScripts','mainScript','sass']);
+
 // Watch
-gulp.task('watch', function () {
+gulp.task('watch', ['assets'], function () {
 
     // Watch main JS file and run mainScript task
     gulp.watch(srcFiles.jsMain, ['mainScript']);
@@ -175,32 +158,26 @@ gulp.task('watch', function () {
 
 });
 
-// Default task
-gulp.task('default', function (cb) {
-    runSequence(
-        'assetClean',
-        'fonts',
-        'images',
-        'svg',
-        'vendorScripts',
-		'mainScript',
-        'sass',
-        'browserSync',
-        'watch',
-		cb
-	);
+gulp.task('generateHTML', ['copyAssets'], function () {
+	
+	var phantomjs = spawn('phantomjs', ['static-slides.js'], {stdio: 'inherit'});
+	
+	var currentTask = this;
+
+    phantomjs.on('exit', function() {
+		// Keep gulp from hanging on this task
+		currentTask.emit('end');
+	});
 });
 
-// Build Task
-gulp.task('build', function (cb) {
-    runSequence(
-		'assetClean',
-		'fonts',
-		'images',
-		'svg',
-		'vendorScripts',
-		'mainScript',
-		'sass',
-		cb
-	);
+gulp.task('copyAssets', ['assets'], function () {
+	// copy items from assets to build
+	return gulp.src('assets/**/*')
+		.pipe(gulp.dest('build'));
 });
+
+// Build task
+gulp.task('build', ['generateHTML']);
+
+// Default task
+gulp.task('default', ['watch', 'browserSync']);
