@@ -1,25 +1,16 @@
 <!DOCTYPE html><!--[if IE 8 ]>    <html class="ie ie8" lang="en-US"> <![endif]--><!--[if IE 9 ]>    <html class="ie ie9" lang="en-US"> <![endif]--><!--[if gt IE 9]><!--><html class="no-js" lang="en-US"><!--<![endif]--><head>
 		<title>Optimizing Development Workflow Using gulp.js | Andrew Taylor</title>
-		<link rel="shortcut icon" href="http://localhost/gulp/wp-content/themes/gulp-talk/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 		<meta name="robots" content="noindex,follow">
-<link rel="alternate" type="application/rss+xml" title="gulp Talk » Feed" href="http://localhost/gulp/feed/">
-<link rel="alternate" type="application/rss+xml" title="gulp Talk » Comments Feed" href="http://localhost/gulp/comments/feed/">
-<link rel="alternate" type="application/rss+xml" title="gulp Talk » gulp Slides Comments Feed" href="http://localhost/gulp/slides/feed/">
-<link rel="stylesheet" id="gulp-slides-css-css" href="http://localhost/gulp/wp-content/themes/gulp-talk/assets/css/gulp-slides-min.css?ver=3.9.2" type="text/css" media="all">
-<script type="text/javascript" src="http://localhost/gulp/wp-includes/js/jquery/jquery.js?ver=1.11.0"></script>
-<script type="text/javascript" src="http://localhost/gulp/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1"></script>
-<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://localhost/gulp/xmlrpc.php?rsd">
-<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://localhost/gulp/wp-includes/wlwmanifest.xml"> 
-<link rel="prev" title="Page Markup And Formatting" href="http://localhost/gulp/about/page-markup-and-formatting/">
-<meta name="generator" content="WordPress 3.9.2">
-<link rel="canonical" href="http://localhost/gulp/slides/">
-<link rel="shortlink" href="http://localhost/gulp/?p=1705">
+<link rel="stylesheet" id="gulp-slides-css-css" href="/assets/css/gulp-slides-min.css?ver=4.0" type="text/css" media="all">
+<script type="text/javascript" src="/assets/js/jquery.js?ver=1.11.1"></script>
+<script type="text/javascript" src="/assets/js/jquery-migrate.min.js?ver=1.2.1"></script>
 	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
     </head>
     <body class="page page-id-1705 page-template page-template-template-gulp-slides-php masthead-fixed full-width singular">
 	<div class="reveal linear center" data-transition-speed="default" data-background-transition="default">
 		<div class="gulp-logo">
-			<img src="http://localhost/gulp/wp-content/themes/gulp-talk/assets/images/gulp-logo-large.png" alt="gulp.js Logo">
+			<img src="/assets/images/gulp-logo-large.png" alt="gulp.js Logo">
 		</div>
 	    <div class="slides" style="width: 351.5px; height: 256.5px; zoom: 1; ">
 		<section style="display: block; top: -128.25px; " class="present slide-1">
@@ -500,9 +491,9 @@
 			<h1>So What Do We Do?</h1>
 			<p>I prefer to manually insert the client JS.</p>
 			<pre><code class="html">
-				&lt;script type="text/javascript"&gt;//&lt;![CDATA[
+				&lt;script type='text/javascript'&gt;//&lt;![CDATA[
 					document.write("&lt;script async src='//HOST:3000/browser-sync-client.1.3.7.js'&gt;&lt;\/script&gt;".replace(/HOST/g, location.hostname));
-				//]]&gt;&lt;/script&gt;&lt;script async="" src="//localhost:3000/browser-sync-client.1.3.7.js"&gt;&lt;/script&gt;
+				//]]&gt;&lt;/script&gt;
 			</code></pre>
 		</section>
 		<section style="top: -20px; display: none; " hidden="" class="future slide-34">
@@ -611,15 +602,13 @@
 		</section>
 	    </div>
 	<div class="backgrounds"><div class="slide-background present"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div></div><div class="progress" style="display: block; "><span style="width: 0px; "></span></div><aside class="controls" style="display: block; "><div class="navigate-left"></div><div class="navigate-right enabled"></div><div class="navigate-up"></div><div class="navigate-down"></div></aside><div class="slide-number"></div><div class="state-background"></div><div class="pause-overlay"></div></div>
-	<script type="text/javascript" src="http://localhost/gulp/wp-content/themes/gulp-talk/assets/js/vendor/head/head.min.js?ver=3.9.2"></script>
-<script type="text/javascript" src="http://localhost/gulp/wp-content/themes/gulp-talk/assets/js/vendor/reveal/reveal.min.js?ver=3.9.2"></script>
+	<script type="text/javascript" src="/assets/js/head.min.js?ver=4.0"></script>
+<script type="text/javascript" src="/assets/js/reveal.min.js?ver=4.0"></script>
 <script type="text/javascript">
 /* <![CDATA[ */
-var WordPressVars = {"themeDir":"http:\/\/localhost\/gulp\/wp-content\/themes\/gulp-talk\/","assetsDir":"http:\/\/localhost\/gulp\/wp-content\/themes\/gulp-talk\/assets\/"};
+var WordPressVars = {"themeDir":"\/","assetsDir":"http:\/\/localhost\/gulp\/wp-content\/themes\/gulp-talk\/assets\/","isStatic":"1"};
 /* ]]> */
 </script>
-<script type="text/javascript" src="http://localhost/gulp/wp-content/themes/gulp-talk/assets/js/gulp-slides-min.js?ver=3.9.2"></script><script type="text/javascript" src="http://localhost/gulp/wp-content/themes/gulp-talk/assets/js/vendor/highlight/highlight.js"></script>
-<script type="text/javascript">//<![CDATA[
-document.write( "<script async src='//HOST:3000/browser-sync-client.1.5.2.js'><\/script>".replace(/HOST/g, location.hostname));
-//]]></script><script async="" src="//localhost:3000/browser-sync-client.1.5.2.js"></script>    
+<script type="text/javascript" src="/assets/js/gulp-slides-min.js?ver=4.0"></script><script type="text/javascript" src="/assets/js/highlight.js"></script>
+    
 </body></html>

@@ -1,4 +1,25 @@
 <?php
+if( IS_STATIC ){
+   add_action( 'after_setup_theme', 'gulp_talk_remove_feeds' );
+}
+
+/*
+* Remove unused links
+*/
+if( !function_exists('gulp_talk_remove_feeds') ):
+
+ function gulp_talk_remove_feeds() {
+	remove_action( 'wp_head', 'feed_links_extra', 3 );
+	remove_action( 'wp_head', 'feed_links', 2 );
+	remove_action('wp_head', 'rel_canonical');
+	remove_action('wp_head', 'wp_generator');
+	remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
+	remove_action('wp_head', 'rsd_link');
+	remove_action('wp_head', 'wlwmanifest_link');
+ }
+ 
+endif;
+
 add_action('wp_enqueue_scripts', 'gulp_talk_register_scripts_styles');
 
 /*
@@ -38,12 +59,13 @@ if( !function_exists('gulp_talk_register_scripts_styles') ):
 	      true
        );
 
-       $WordPressVars = array(
-	      'themeDir' => get_stylesheet_directory_uri() . '/',
-	      'assetsDir' => get_stylesheet_directory_uri() . '/assets/',
-       );
+	   $WordPressVars = array(
+		  'themeDir' => '/',
+		  'assetsDir' => get_stylesheet_directory_uri() . '/assets/',
+		  'isStatic' => IS_STATIC,
+	   );
 
-       wp_localize_script('gulp-slides-js', 'WordPressVars', $WordPressVars);
+	   wp_localize_script('gulp-slides-js', 'WordPressVars', $WordPressVars);
 
        wp_register_style(
 	      'gulp-slides-css',

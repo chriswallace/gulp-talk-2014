@@ -31,7 +31,6 @@ var srcFiles = {
 // Set Dest Paths
 var destPaths = {
     img: 'assets/images',
-    svg: 'assets/images',
     css: 'assets/css',
     jsVendor: 'assets/js/vendor',
     js: 'assets/js',
@@ -40,7 +39,7 @@ var destPaths = {
 
 
 // Sass
-gulp.task('sass', ['clean'], function () {
+gulp.task('sass', function () {
     return gulp.src(srcFiles.scss)
         .pipe($.sass({
         // define realtive image path for "image-url"
@@ -50,10 +49,10 @@ gulp.task('sass', ['clean'], function () {
     .on('error', handleErrors)
     // add browser prefixes
     .pipe($.autoprefixer())
-    // Write human readable file
-    .pipe(gulp.dest(destPaths.css))
     // combine media queries
     .pipe($.combineMediaQueries())
+	// write human readable file
+    .pipe(gulp.dest(destPaths.css))
     // minify css
     .pipe($.minifyCss({
         keepSpecialComments: 1
@@ -71,14 +70,14 @@ gulp.task('sass', ['clean'], function () {
 });
 
 // Fonts
-gulp.task('fonts', ['clean'], function () {
+gulp.task('fonts', function () {
     return gulp.src(srcFiles.fonts)
     // don't do anything to fonts, just save 'em
     .pipe(gulp.dest(destPaths.fonts));
 });
 
 // Images
-gulp.task('images', ['clean'], function () {
+gulp.task('images', function () {
     return gulp.src(srcFiles.img)
     // use cache to only target new/changed files
     // then optimize the images
@@ -95,7 +94,7 @@ gulp.task('images', ['clean'], function () {
 });
 
 // Vendor Scripts
-gulp.task('vendorScripts', ['clean'], function () {
+gulp.task('vendorScripts', function () {
     // don't do anything to vendor scripts, just save 'em
     // we will enqueue with WordPress
     return gulp.src(srcFiles.jsVendor)
@@ -103,7 +102,7 @@ gulp.task('vendorScripts', ['clean'], function () {
 });
 
 // Main Script
-gulp.task('mainScript', ['clean'], function () {
+gulp.task('mainScript', function () {
     return gulp.src(srcFiles.jsMain)
     // minfiy
     .pipe($.uglify())
@@ -122,7 +121,7 @@ gulp.task('mainScript', ['clean'], function () {
 // Clean
 gulp.task('clean', function (cb) {
     // deletes everything in assets directory
-    del(['./assets', './build'], cb);
+    del(['./assets', './static-site'], cb);
 });
 
 // BrowserSync
@@ -158,26 +157,23 @@ gulp.task('watch', ['assets'], function () {
 
 });
 
-gulp.task('copyAssets', ['assets'], function () {
-	// copy items from assets to build
-	return gulp.src('assets/**/*')
-		.pipe(gulp.dest('build'));
-});
-
-gulp.task('generateHTML', ['copyAssets'], function () {
+gulp.task('generateHTML', ['assets'], function (cb) {
 	
 	var phantomjs = spawn('phantomjs', ['static-slides.js'], {stdio: 'inherit'});
-	
-	var currentTask = this;
 
-    phantomjs.on('exit', function() {
-		// Keep gulp from hanging on this task
-		currentTask.emit('end');
-	});
+	phantomjs.on('exit', cb);
+	
 });
 
 // Build task
-gulp.task('build', ['generateHTML']);
+gulp.task('build', function (cb) {
+    $.runSequence(
+		'clean',
+		'assets',
+		'generateHTML',
+		cb
+	);
+});
 
 // Default task
 gulp.task('default', ['watch', 'browserSync']);

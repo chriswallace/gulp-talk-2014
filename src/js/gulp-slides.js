@@ -1,6 +1,12 @@
 var WordPressVars = WordPressVars;
 
 /* INITIALIZE REVEAL.JS */
+if ( WordPressVars.isStatic == 1 ) {
+		var highlightJS = '/assets/js/highlight.js';
+} else{
+		var highlightJS = WordPressVars.assetsDir + 'js/vendor/highlight/highlight.js';
+}
+
 Reveal.initialize({
 		controls: true,
 		progress: true,
@@ -12,7 +18,7 @@ Reveal.initialize({
 		transition: Reveal.getQueryHash().transition || 'linear',
 		dependencies: [
 				{
-						src: WordPressVars.assetsDir + 'js/vendor/highlight/highlight.js',
+						src: highlightJS,
 						async: true,
 						callback: function() {
 								hljs.initHighlightingOnLoad();
@@ -34,5 +40,5 @@ jQuery(document).ready(function($) {
 				$(this).addClass('slide-' + slideCount);
 				slideCount += 1;
 		});
-
+		
 });

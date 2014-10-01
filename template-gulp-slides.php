@@ -494,9 +494,9 @@
 			<h1>So What Do We Do?</h1>
 			<p>I prefer to manually insert the client JS.</p>
 			<pre><code class="html">
-				<script type='text/javascript'>//<![CDATA[
-					document.write("<script async src='//HOST:3000/browser-sync-client.1.3.7.js'><\/script>".replace(/HOST/g, location.hostname));
-				//]]></script>
+				&lt;script type='text/javascript'&gt;//&lt;![CDATA[
+					document.write("&lt;script async src='//HOST:3000/browser-sync-client.1.3.7.js'&gt;&lt;\/script&gt;".replace(/HOST/g, location.hostname));
+				//]]&gt;&lt;/script&gt;
 			</code></pre>
 		</section>
 		<section>
