@@ -1,10 +1,11 @@
 // Load plugins
 var gulp = require('gulp'),
-	$ = require('gulp-load-plugins')(),
-	del = require('del'),
+	// stash all gulp plugins in $
+    $ = require('gulp-load-plugins')(),
+    del = require('del'),
     browserSync = require('browser-sync'),
     reload = browserSync.reload,
-	spawn = require('child_process').spawn;
+    spawn = require('child_process').spawn;
 
 // Error Handler
 var handleErrors = function () {
@@ -51,7 +52,7 @@ gulp.task('sass', function () {
     .pipe($.autoprefixer())
     // combine media queries
     .pipe($.combineMediaQueries())
-	// write human readable file
+    // write human readable file
     .pipe(gulp.dest(destPaths.css))
     // minify css
     .pipe($.minifyCss({
@@ -121,7 +122,7 @@ gulp.task('mainScript', function () {
 // Clean
 gulp.task('clean', function (cb) {
     // deletes everything in assets directory
-    del(['./assets', './static-site'], cb);
+    del(['./assets', './static-slides'], cb);
 });
 
 // BrowserSync
@@ -129,19 +130,24 @@ gulp.task('browserSync', ['assets'], function () {
     // Files to watch w/ Browser-sync
     // Typically files you aren't modifying with gulp but still want to reload
     var watchFiles = [
-		// Like PHP files
-		srcFiles.php
-	];
-	
+    // Like PHP files
+    srcFiles.php];
+
     // initialize browsersync
     browserSync.init(watchFiles, {
-		// config options, such as port, go here
-		// see http://www.browsersync.io/docs/gulp/
-	});
+        // config options, such as port, go here
+        // see http://www.browsersync.io/docs/gulp/
+    });
 });
 
-// Build Task
-gulp.task('assets', ['fonts','images','vendorScripts','mainScript','sass']);
+// Assets Task
+gulp.task('assets', [
+	'fonts',
+	'images',
+	'vendorScripts',
+	'mainScript',
+	'sass'
+]);
 
 // Watch
 gulp.task('watch', ['assets'], function () {
@@ -154,25 +160,68 @@ gulp.task('watch', ['assets'], function () {
 
     // Watch image files and run image task
     gulp.watch(srcFiles.img, ['images']);
+	
+	// Watch php files and rebuild static html
+    gulp.watch(srcFiles.php, ['generateHTML']);
 
 });
 
-gulp.task('generateHTML', ['assets'], function (cb) {
-	
-	var phantomjs = spawn('phantomjs', ['static-slides.js'], {stdio: 'inherit'});
+gulp.task('cloneCSS', function (cb) {
+	return gulp.src(['./assets/**/*.css', './static-slides/assets/**/*.css'])
+		.pipe($.rename(function(path){
+			path.dirname = '/';
+		}))
+        .pipe(gulp.dest('./static-slides/assets/css'));
+});
 
-	phantomjs.on('exit', cb);
+gulp.task('cloneJS', function (cb) {
+	return gulp.src(['./assets/js/**/*.js', './static-slides/assets/**/*.css'])
+		.pipe($.rename(function(path){
+			path.dirname = '/';
+		}))
+        .pipe(gulp.dest('./static-slides/assets/js'));
+});
+
+gulp.task('cloneIMG', function (cb) {
+	return gulp.src(['./assets/**/*.{jpg,png,svg,gif}', './static-slides/assets/**/*.{jpg,png,svg,gif}'])
+		.pipe($.rename(function(path){
+			path.dirname = '/';
+		}))
+        .pipe(gulp.dest('./static-slides/assets/images'));
+});
+
+gulp.task('cloneFONTS', function (cb) {
+	return gulp.src(['./assets/fonts/**/*', './static-slides/assets/fonts/**/*'])
+		.pipe($.rename(function(path){
+			path.dirname = '/';
+		}))
+        .pipe(gulp.dest('./static-slides/assets/fonts'));
+});
 	
+// copy assets for static HTML
+gulp.task('assetsClone', ['cloneCSS', 'cloneJS', 'cloneIMG', 'cloneFONTS']);
+
+// Create Static HTML
+gulp.task('generateHTML', function (cb) {
+
+	// go go phantom
+	// you will need to customize static-slides.js for your needs
+    var phantomjs = spawn('phantomjs', ['static-slides.js'], {
+        stdio: 'inherit'
+    });
+
+    phantomjs.on('exit', cb);
+
 });
 
 // Build task
 gulp.task('build', function (cb) {
     $.runSequence(
-		'clean',
+        'clean',
 		'assets',
-		'generateHTML',
-		cb
-	);
+        'generateHTML',
+		'assetsClone',
+    cb);
 });
 
 // Default task

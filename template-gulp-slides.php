@@ -25,7 +25,7 @@
 		    <h2>WordCamp DFW 2014</h2>
 
 		    <p>
-				<small>Slides created with <a href="http://lab.hakim.se/reveal-js">reveal.js</a></small>
+				<small>Slides created with <a href="http://lab.hakim.se/reveal-js"  target="_blank">reveal.js</a></small>
 		    </p>
 		</section>
 		<section>
@@ -36,11 +36,11 @@
 				<li>WordPress</li>
 				<li>Homebrewing  &amp; Craft Beer</li>
 				<li>The Pacific Northwest</li>
-				<li>Being Part Of The <a href="http://liftux.com/">LiftUX</a> Team</li>
+				<li>Being Part Of The <a href="http://liftux.com/"  target="_blank">LiftUX</a> Team</li>
 		    </ul>
 
 		    <h2>
-				<a href="http://www.ataylor.me">ataylor.me</a> | <a href="http://twitter.com/ataylorme">@ataylorme</a>
+				<a href="http://www.ataylor.me"  target="_blank">ataylor.me</a> | <a href="http://twitter.com/ataylorme"  target="_blank">@ataylorme</a>
 		    </h2>
 
 		</section>
@@ -55,7 +55,7 @@
 		    </ul>
 
 		    <p>
-				<small><a href="http://omcfarlane.co.uk/install-gulp-js-windows/">The steps on Windows are supposedly very similar</a> but I haven't tested them.</small>
+				<small><a href="http://omcfarlane.co.uk/install-gulp-js-windows/"  target="_blank">The steps on Windows are supposedly very similar</a> but I haven't tested them.</small>
 			</p>
 		</section>
 		<section>
@@ -63,10 +63,10 @@
 
 		    <h3>
 				You can install Node and npm (Node package manager)<br />
-				from <a href="http://nodejs.org/">http://nodejs.org/</a>
+				from <a href="http://nodejs.org/"  target="_blank">http://nodejs.org/</a>
 		    </h3>
 
-		    Or with <a href="http://brew.sh/">homebrew</a> on OSX <code class="shell">$brew install node</code>
+		    Or with <a href="http://brew.sh/"  target="_blank">homebrew</a> on OSX <code class="shell">$brew install node</code>
 		</section>
 		<section>
 		    <h1>What is gulp?</h1>
@@ -110,7 +110,7 @@
 				Streams are readable, writable, or both.
 		    </blockquote>
 
-		    <a href="http://nodejs.org/api/stream.html#stream_stream">
+		    <a href="http://nodejs.org/api/stream.html#stream_stream"  target="_blank">
 				See the gulp API docs for more info
 		    </a>
 		</section>
@@ -156,9 +156,9 @@
 		    <h3>Registers a function as a task, with optional dependencies</h3>
 
 		    <pre><code class="javascript">
-				gulp.task('sass', function() {
-					//Do some stuff
-				});
+gulp.task('sass', function() {
+	//Do some stuff
+});
 		    </code></pre>
 		</section>
 		<section>
@@ -180,8 +180,8 @@
 		    <p>The matched files are then piped to actions or other streams</p>
 
 		    <pre><code class="javascript">
-				gulp.src('js/**/*.js')
-					.pipe(/* some task*/);
+gulp.src('js/**/*.js')
+	.pipe(/* some task*/);
 		    </code></pre>
 		</section>
 		<section>
@@ -194,9 +194,9 @@
 		    <p><small>Relative path from <code>gulpfile.js</code></small></p>
 
 		    <pre><code class="javascript">
-				gulp.src('js/**/*.js')
-					.pipe(/* some task*/)
-					.pipe(gulp.dest('build/js'));
+gulp.src('js/**/*.js')
+	.pipe(/* some task*/)
+	.pipe(gulp.dest('build/js'));
 		    </code></pre>
 		</section>
 		<section>
@@ -206,13 +206,13 @@
 
 		    <h3>gulp plugins always include the <code>gulpplugin</code> keyword.</h3>
 
-		    <p><a href="http://gratimax.github.io/search-gulp-plugins/">Search gulp plugins</a> or <a href="https://npmjs.org/browse/keyword/gulpplugin">view all gulp plugins</a>.</p>
+		    <p><a href="http://gratimax.github.io/search-gulp-plugins/"  target="_blank">Search gulp plugins</a> or <a href="https://npmjs.org/browse/keyword/gulpplugin"  target="_blank">view all gulp plugins</a>.</p>
 		</section>
 		<section>
 		    <h1>Create a package.json file</h1>
 
 		    <h3>
-			I suggest reading the <a href="https://www.npmjs.org/doc/package.json.html">package.json official description</a>
+			I suggest reading the <a href="https://www.npmjs.org/doc/package.json.html"  target="_blank">package.json official description</a>
 		    </h3>
 
 		    <p>The two items <strong>required</strong> by Node are name and version</p>
@@ -220,10 +220,10 @@
 		    <blockquote>Together they form a unique identifier</blockquote>
 
 		    <pre><code>
-			{
-			    "name": "gulp-talk-2014",
-			    "version": "1.0.0"
-			}
+{
+	"name": "gulp-talk-2014",
+	"version": "1.0.0"
+}
 		    </code></pre>
 		</section>
 		<section>
@@ -232,13 +232,13 @@
 		    <h3>gulp Plugins Are Defined Under <code>devDependencies</code></h3>
 
 		    <pre><code class="json">
-			{
-			    "name": "gulp-talk-2014",
-			    "version": "1.0.0",
-			    "devDependencies": {
-					/* List Plugins Here */
-			    }
-			}
+{
+	"name": "gulp-talk-2014",
+	"version": "1.0.0",
+	"devDependencies": {
+		/* List Plugins Here */
+	}
+}
 		    </code></pre>
 		</section>
 		<section>
@@ -280,207 +280,212 @@
 		<section>
 			<h1>Loading Plugins</h1>
 			<pre><code class="javascript">
-				var gulp = require('gulp'),
-					sass = require('gulp-sass'),
-					minifyCss = require("gulp-minify-css"),
-					autoprefixer = require("gulp-autoprefixer"),
-					imagemin = require('gulp-imagemin'),
-					notify = require("gulp-notify"),
-					rename = require("gulp-rename"),
-					cmq = require('gulp-combine-media-queries'),
-					uglify = require('gulp-uglify'),
-					runSequence = require('gulp-run-sequence'),
-					clean = require('gulp-clean'),
-					cache = require('gulp-cache'),
-					browserSync = require('browser-sync'),
-					reload = browserSync.reload;
+var gulp = require('gulp'),
+	sass = require('gulp-sass'),
+	minifyCss = require("gulp-minify-css"),
+	autoprefixer = require("gulp-autoprefixer"),
+	imagemin = require('gulp-imagemin'),
+	...
+			</code></pre>
+		</section>
+		<section>
+			<h1>There's A Plugin For That...</h1>
+			<h3>Specifically: <a href="https://www.npmjs.org/package/gulp-load-plugins" target="_blank">gulp-load-plugins</a></h3>
+			<pre><code class="javascript">
+// stash all gulp plugins in $
+var gulpLoadPlugins = require('gulp-load-plugins');
+var $ = gulpLoadPlugins();
+
+// or the shorthand
+var $ = require('gulp-load-plugins')();
 			</code></pre>
 		</section>
 		<section>
 			<h1>Error Handler</h1>
-			<p><a href="https://github.com/greypants/gulp-starter/blob/master/gulp/util/handleErrors.js">Source</a></p>
+			<p><a href="https://github.com/greypants/gulp-starter/blob/master/gulp/util/handleErrors.js"  target="_blank">Source</a></p>
 			<pre><code class="javascript">
-				var handleErrors = function () {
-					// Send error to notification center with gulp-notify
-					notify.onError({
-						title: "Compile Error",
-						message: "<%= error.message %>"
-					}).apply(this, arguments);
-				
-					// Keep gulp from hanging on this task
-					this.emit('end');
-				};
+var handleErrors = function () {
+	// Send error to notification center with gulp-notify
+	$.notify.onError({
+		title: "Compile Error",
+		message: "<%= error.message %>"
+	}).apply(this, arguments);
+
+	// Keep gulp from hanging on this task
+	this.emit('end');
+};
 			</code></pre>
 		</section>
 		<section>
 			<h1>Define Source Files</h1>
 			<pre><code class="javascript">
-				var srcFiles = {
-					img: 'src/images/**/*.{png,jpg,jpeg,gif}',
-					svg: 'src/images/**/*.svg',
-					css: 'src/scss/**/*.scss',
-					jsMain: 'src/js/gulp-slides.js',
-					jsVendor: 'src/js/vendor/**/*.js',
-					fonts: 'src/fonts/**/*',
-					php: ['**/*.php']
-				}
+var srcFiles = {
+	img: 'src/images/**/*.{png,jpg,jpeg,gif,svg}',
+	css: 'src/scss/**/*.scss',
+	jsMain: 'src/js/gulp-slides.js',
+	jsVendor: 'src/js/vendor/**/*.js',
+	fonts: 'src/fonts/**/*',
+	php: ['**/*.php']
+}
 			</code></pre>
 		</section>
 		<section>
 			<h1>Define Destination Paths</h1>
 			<pre><code class="javascript">
-				var destPaths = {
-					img: 'assets/images',
-					svg: 'assets/images',
-					css: 'assets/css',
-					jsVendor: 'assets/js/vendor',
-					js: 'assets/js',
-					fonts: 'assets/fonts'
-				}
+var destPaths = {
+	img: 'assets/images',
+	svg: 'assets/images',
+	css: 'assets/css',
+	jsVendor: 'assets/js/vendor',
+	js: 'assets/js',
+	fonts: 'assets/fonts'
+}
 			</code></pre>
 		</section>
 		<section>
-			<h1>SVG/Font Tasks</h1>
-			<p>Just as pass through so files exist in the destination directory</p>
+			<h1>Font Tasks</h1>
+			<p>Just a pass through so files exist in the destination directory</p>
 			<pre><code class="javascript">
-				gulp.task('fonts', function () {
-					return gulp.src(srcFiles.fonts)
-					// don't do anything to fonts, just save 'em
-					.pipe(gulp.dest(destPaths.fonts));
-				});
-
-				gulp.task('svg', function () {
-					return gulp.src(srcFiles.svg)
-					// svgs are just passing through
-					.pipe(gulp.dest(destPaths.svg))
-					// send changes to Browser-sync
-					.pipe(reload({
-						stream: true
-					}));
-				});
+gulp.task('fonts', function () {
+	return gulp.src(srcFiles.fonts)
+	// don't do anything to fonts, just save 'em
+	.pipe(gulp.dest(destPaths.fonts));
+});
 			</code></pre>
 		</section>
 		<section>
 			<h1>Sass Task</h1>
 			<pre><code class="javascript">
-				// Sass Task
-				gulp.task('sass', function () {
-					return gulp.src(srcFiles.scss)
-						.pipe(sass({
-						// define realtive image path for "image-url"
-						imagePath: '../images'
-					}))
-					// send Sass errors to console
-					.on('error', handleErrors)
-					// add browser prefixes
-					.pipe(autoprefixer())
-					// Write human readable file
-					.pipe(gulp.dest(destPaths.css))
-					// combine media queries
-					.pipe(cmq())
-					// minify css
-					.pipe(minifyCss({
-						keepSpecialComments: 1
-					}))
-					// add "-min"
-					.pipe(rename({
-						suffix: "-min"
-					}))
-					// save minified file
-					.pipe(gulp.dest(destPaths.css))
-					// send changes to Browser-sync
-					.pipe(reload({
-						stream: true
-					}));
-				});
+gulp.task('sass', function () {
+	return gulp.src(srcFiles.scss)
+		.pipe(sass({
+		// define realtive image path for "image-url"
+		imagePath: '../images'
+	}))
+	// send Sass errors to console
+	.on('error', handleErrors)
+	// add browser prefixes
+	.pipe(autoprefixer())
+	// Write human readable file
+	.pipe(gulp.dest(destPaths.css))
+	// combine media queries
+	.pipe(cmq())
+	// minify css
+	.pipe(minifyCss({
+		keepSpecialComments: 1
+	}))
+	// add "-min"
+	.pipe(rename({
+		suffix: "-min"
+	}))
+	// save minified file
+	.pipe(gulp.dest(destPaths.css))
+	// send changes to Browser-sync
+	.pipe(reload({
+		stream: true
+	}));
+});
 			</code></pre>
 		</section>
 		<section>
 			<h1>Image Task</h1>
 			<pre><code class="javascript">
-				gulp.task('images', function () {
-					return gulp.src(srcFiles.img)
-					// use cache to only target new/changed files
-					// then optimize the images
-					.pipe(cache(imagemin({
-						progressive: true,
-						interlaced: true
-					})))
-					// save optimized image files
-					.pipe(gulp.dest(destPaths.img))
-					// send changes to Browser-sync
-					.pipe(reload({
-						stream: true
-					}));
-				});
+gulp.task('images', function () {
+	return gulp.src(srcFiles.img)
+	// use cache to only target new/changed files
+	// then optimize the images
+	.pipe(cache(imagemin({
+		progressive: true,
+		interlaced: true
+	})))
+	// save optimized image files
+	.pipe(gulp.dest(destPaths.img))
+	// send changes to Browser-sync
+	.pipe(reload({
+		stream: true
+	}));
+});
 			</code></pre>
 		</section>
 		<section>
 			<h1>Vendor Scripts</h1>
 			<pre><code class="javascript">
-				gulp.task('vendorScripts', function () {
-					// don't do anything to vendor scripts, just save 'em
-					// we will enqueue with WordPress
-					return gulp.src(srcFiles.jsVendor)
-						.pipe(gulp.dest(destPaths.jsVendor));
-				});
+gulp.task('vendorScripts', function () {
+	// don't do anything to vendor scripts, just save 'em
+	// we will enqueue with WordPress
+	return gulp.src(srcFiles.jsVendor)
+		.pipe(gulp.dest(destPaths.jsVendor));
+});
 			</code></pre>
 		</section>
 		<section>
 			<h1>Main Script</h1>
 			<pre><code class="javascript">
-				gulp.task('mainScript', function () {
-					return gulp.src(srcFiles.jsMain)
-					// minfiy
-					.pipe(uglify())
-					// rename to "-min"
-					.pipe(rename({
-						suffix: "-min"
-					}))
-					// save
-					.pipe(gulp.dest(destPaths.js))
-					// send changes to Browser-sync
-					.pipe(reload({
-						stream: true
-					}));
-				});
+gulp.task('mainScript', function () {
+	return gulp.src(srcFiles.jsMain)
+	// minfiy
+	.pipe(uglify())
+	// rename to "-min"
+	.pipe(rename({
+		suffix: "-min"
+	}))
+	// save
+	.pipe(gulp.dest(destPaths.js))
+	// send changes to Browser-sync
+	.pipe(reload({
+		stream: true
+	}));
+});
+			</code></pre>
+		</section>
+		<section>
+			<h1>Assets Task</h1>
+			<p>Fires Off Existing Tasks, Asynchronously</p>
+			<pre><code class="javascript">
+	gulp.task('assets', [
+		'fonts',
+		'images',
+		'vendorScripts',
+		'mainScript',
+		'sass'
+	]);
 			</code></pre>
 		</section>
 		<section>
 			<h1>Watch Task</h1>
 			<pre><code class="javascript">
-				gulp.task('watch', function () {
+gulp.task('watch', function () {
 
-				// Watch main JS file and run mainScript task
-				gulp.watch(srcFiles.jsMain, ['mainScript']);
-			
-				// Watch .scss files and run sass task
-				gulp.watch(srcFiles.scss, ['sass']);
-			
-				// Watch image files and run image task
-				gulp.watch(srcFiles.img, ['images']);
-			
-			});
+	// Watch main JS file and run mainScript task
+	gulp.watch(srcFiles.jsMain, ['mainScript']);
+
+	// Watch .scss files and run sass task
+	gulp.watch(srcFiles.scss, ['sass']);
+
+	// Watch image files and run image task
+	gulp.watch(srcFiles.img, ['images']);
+
+});
 			</code></pre>
 		</section>
 		<section>
 			<h1>Browser-sync Task</h1>
 			<p>See <a href="http://www.browsersync.io/docs/gulp/" target="_blank">browsersync.io</a></p>
 			<pre><code class="javascript">
-				gulp.task('browserSync', function () {
-					// Files to watch w/ Browser-sync
-					// Typically files you aren't modifying with gulp but still want to reload
-					var watchFiles = [
-						// Like PHP files
-						srcFiles.php
-					];
-				
-					// initialize browsersync
-					browserSync.init(watchFiles, {
-						// config options, such as port, go here
-						// see http://www.browsersync.io/docs/gulp/
-					});
-				});
+gulp.task('browserSync', ['assets'], function () {
+	// Files to watch with Browser-sync
+	// Typically files you aren't modifying with gulp
+	var watchFiles = [
+		// Like PHP files
+		srcFiles.php
+	];
+
+	// initialize browsersync
+	browserSync.init(watchFiles, {
+		// config options, such as port, go here
+		// see http://www.browsersync.io/docs/gulp/
+	});
+});
 			</code></pre>
 		</section>
 		<section>
@@ -493,10 +498,11 @@
 		<section>
 			<h1>So What Do We Do?</h1>
 			<p>I prefer to manually insert the client JS.</p>
+			<p>You're Terminal Will Have Something Like This</p>
 			<pre><code class="html">
-				&lt;script type='text/javascript'&gt;//&lt;![CDATA[
-					document.write("&lt;script async src='//HOST:3000/browser-sync-client.1.3.7.js'&gt;&lt;\/script&gt;".replace(/HOST/g, location.hostname));
-				//]]&gt;&lt;/script&gt;
+&lt;script type='text/javascript'&gt;//&lt;![CDATA[
+	document.write("&lt;script async src='//HOST:3000/browser-sync-client.1.3.7.js'&gt;&lt;\/script&gt;".replace(/HOST/g, location.hostname));
+//]]&gt;&lt;/script&gt;
 			</code></pre>
 		</section>
 		<section>
@@ -515,51 +521,37 @@
 			<h1>Default Task</h1>
 			<h3>Runs when you type <code class="shell">$gulp</code></h3>
 			<pre><code class="javascript">
-				gulp.task('default', function (cb) {
-					runSequence(
-						'assetClean',
-						'fonts',
-						'images',
-						'svg',
-						'vendorScripts',
-						'mainScript',
-						'sass',
-						'browserSync',
-						'watch',
-						cb
-					);
-				});
+// Just going to run other tasks
+gulp.task('default', ['watch', 'browserSync']);
 			</code></pre>
+			<p>
+				The <code>assets</code> task runs since it is a dependency of the <code>browserSync</code> task
+			</p>
 		</section>
 		<section>
-			<h1>Asset Clean</h1>
+			<h1>Clean Task</h1>
 			<p>gulp doesn't delete files</p>
 			<p>So we wipe out the <code>assets</code> directory</p>
 			<pre><code class="javascript">
-				gulp.task('assetClean', function () {
-					// deletes everything in assets directory
-					return gulp.src('assets').pipe(clean());
-				});
+gulp.task('clean', function (cb) {
+	// deletes everything in assets directory
+	del(['./assets'], cb);
+});
 			</code></pre>
 		</section>
 		<section>
 			<h1>Build Task</h1>
 			<p>After deleting assets</p>
-			<p>We rebuild</p>
+			<p>We rebuild them</p>
 			<p>Run with <code class="shell">$gulp build</code></p>
 			<pre><code class="javascript">
-				gulp.task('build', function (cb) {
-					runSequence(
-						'assetClean',
-						'fonts',
-						'images',
-						'svg',
-						'vendorScripts',
-						'mainScript',
-						'sass',
-						cb
-					);
-				});
+// Build task
+gulp.task('build', function (cb) {
+	$.runSequence(
+		'clean',
+		'assets',
+	cb);
+});
 			</code></pre>
 		</section>
 		<section>
@@ -587,21 +579,21 @@
 			<h1>Maybe you have a Jekyll blog?</h1>
 			<p>and want to <a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md#async-task-support" target="_blank">add it to your build task</a></p>
 			<pre><code class="javascript">
-				var exec = require('child_process').exec;
-				gulp.task('jekyll', function(cb) {
-				  // build Jekyll
-				  exec('jekyll build', function(err) {
-					if (err) return cb(err); // return error
-					cb(); // finished task
-				  });
-				});
+var spawn = require('child_process').spawn;
+gulp.task('generateHTML', ['assets'], function (cb) {
+
+	var phantomjs = spawn('phantomjs', ['static-slides.js'], {stdio: 'inherit'});
+
+	phantomjs.on('exit', cb);
+
+});
 			</code></pre>
 		</section>
 		<section>
 			<h1>Conclusion</h1>
 			<p>Try gulp out, explore plugins, and speed up your development</p>
 			<p>If you do something cool let me know!</p>
-			<a href="http://www.ataylor.me">ataylor.me</a> | <a href="http://twitter.com/ataylorme">@ataylorme</a>
+			<a href="http://www.ataylor.me" target="_blank">ataylor.me</a> | <a href="http://twitter.com/ataylorme" target="_blank">@ataylorme</a>
 		</section>
 	    </div>
 	</div>

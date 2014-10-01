@@ -6,6 +6,11 @@ var page = require('webpage').create(),
 
 page.settings.localToRemoteUrlAccessEnabled = true;
 
+String.prototype.replaceAll = function (find, replace) {
+    var str = this;
+    return str.replace(new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'g'), replace);
+};
+
 page.onResourceRequested = function(requestData, networkRequest) {
 	var fileURL = requestData.url.split('?')[0],
 		fileExt = fileURL.split('.').pop().toLowerCase(),
@@ -43,8 +48,9 @@ page.onResourceRequested = function(requestData, networkRequest) {
 		// save asset files
 		console.log("Downloading: " + fileURL + " To: " + assetsDir);
 		spawn('wget', ['-N', '-P', assetsDir, fileURL]);
+		//spawn('curl', ['-o', assetsDir + fileName, fileURL]);
 		// stash the URLs
-		assetsList[fileURL] = assetsDir.replace('./static-slides', '') + fileName;
+		assetsList[fileURL] = assetsDir.replaceAll('./static-slides', '') + fileName;
 	}
 	
 };
@@ -56,18 +62,20 @@ page.open(url,function(status){
     }
 	// get favicon
 	spawn('wget', ['-N', '-P', './static-slides/', 'http://localhost/gulp/wp-content/themes/gulp-talk/favicon.ico']);
+	// get package.json
+	spawn('wget', ['-N', '-P', './static-slides/', 'http://localhost/gulp/wp-content/themes/gulp-talk/package.json']);
 	
 	// stash page content
 	var pageContent = page.content;
 	// strip WordPress theme 
-	pageContent = pageContent.replace('http://localhost/gulp/wp-content/themes/gulp-talk', '');
 	for (var fileURL in assetsList) {
         if (assetsList.hasOwnProperty(fileURL)) {
            fileSrc = assetsList[fileURL];
 		   fileName = fileURL.substring(fileURL.lastIndexOf('/')+1);
-		   pageContent = pageContent.replace(fileURL,fileSrc);
+		   pageContent = pageContent.replaceAll(fileURL,fileSrc);
         }
     }
+	pageContent = pageContent.replaceAll('http://localhost/gulp/wp-content/themes/gulp-talk', '');
 	fs.write('./static-slides/index.html', pageContent, 'w');
     phantom.exit();
 });

@@ -40,5 +40,5 @@ jQuery(document).ready(function($) {
 				$(this).addClass('slide-' + slideCount);
 				slideCount += 1;
 		});
-		
+
 });
