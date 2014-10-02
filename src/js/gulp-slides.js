@@ -40,5 +40,7 @@ jQuery(document).ready(function($) {
 				$(this).addClass('slide-' + slideCount);
 				slideCount += 1;
 		});
-
+		
+		//$('h1').css('color', 'green');
+		
 });

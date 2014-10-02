@@ -26,7 +26,7 @@ var srcFiles = {
     jsMain: 'src/js/gulp-slides.js',
     jsVendor: 'src/js/vendor/**/*.js',
     fonts: 'src/fonts/**/*',
-    php: ['**/*.php']
+    php: '**/*.php'
 }
 
 // Set Dest Paths
@@ -43,7 +43,7 @@ var destPaths = {
 gulp.task('sass', function () {
     return gulp.src(srcFiles.scss)
         .pipe($.sass({
-        // define realtive image path for "image-url"
+        // define relative image path for "image-url"
         imagePath: '../images'
     }))
     // send SASS errors to console
@@ -105,7 +105,7 @@ gulp.task('vendorScripts', function () {
 // Main Script
 gulp.task('mainScript', function () {
     return gulp.src(srcFiles.jsMain)
-    // minfiy
+    // minify
     .pipe($.uglify())
     // rename to "-min"
     .pipe($.rename({
@@ -160,9 +160,6 @@ gulp.task('watch', ['assets'], function () {
 
     // Watch image files and run image task
     gulp.watch(srcFiles.img, ['images']);
-	
-	// Watch php files and rebuild static html
-    gulp.watch(srcFiles.php, ['generateHTML']);
 
 });
 
@@ -175,7 +172,7 @@ gulp.task('cloneCSS', function (cb) {
 });
 
 gulp.task('cloneJS', function (cb) {
-	return gulp.src(['./assets/js/**/*.js', './static-slides/assets/**/*.css'])
+	return gulp.src(['./assets/js/**/*.js', './static-slides/assets/**/*.js'])
 		.pipe($.rename(function(path){
 			path.dirname = '/';
 		}))
@@ -197,19 +194,28 @@ gulp.task('cloneFONTS', function (cb) {
 		}))
         .pipe(gulp.dest('./static-slides/assets/fonts'));
 });
-	
+
+gulp.task('cloneMISC', function (cb) {
+	return gulp.src(['./favicon.ico', './package.json'])
+		.pipe($.rename(function(path){
+			path.dirname = '/';
+		}))
+        .pipe(gulp.dest('./static-slides'));
+});
+
 // copy assets for static HTML
-gulp.task('assetsClone', ['cloneCSS', 'cloneJS', 'cloneIMG', 'cloneFONTS']);
+gulp.task('assetsClone', ['cloneCSS', 'cloneJS', 'cloneIMG', 'cloneFONTS', 'cloneMISC']);
 
 // Create Static HTML
 gulp.task('generateHTML', function (cb) {
 
-	// go go phantom
+	// calls "phantomjs static-slides.js"
 	// you will need to customize static-slides.js for your needs
     var phantomjs = spawn('phantomjs', ['static-slides.js'], {
         stdio: 'inherit'
     });
 
+	// end the task when phantom exits
     phantomjs.on('exit', cb);
 
 });

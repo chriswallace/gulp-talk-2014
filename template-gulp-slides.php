@@ -18,107 +18,98 @@
 	    <div class="slides">
 		<section>
 		    <h1>
-			Optimizing Development <br />
-			Workflow Using <a href="http://gulpjs.com/">gulp.js</a>
+				Optimizing development <br />
+				workflow using <a href="http://gulpjs.com/">gulp.js</a>
 		    </h1>
-
 		    <h2>WordCamp DFW 2014</h2>
-
 		    <p>
 				<small>Slides created with <a href="http://lab.hakim.se/reveal-js"  target="_blank">reveal.js</a></small>
 		    </p>
 		</section>
 		<section>
 		    <h1>Andrew Taylor</h1>
-
 		    <ul>
-				<h3>A Few Things I Love</h3>
+				<h3>A few things I love</h3>
 				<li>WordPress</li>
-				<li>Homebrewing  &amp; Craft Beer</li>
+				<li>Homebrewing  &amp; craft beer</li>
 				<li>The Pacific Northwest</li>
-				<li>Being Part Of The <a href="http://liftux.com/"  target="_blank">LiftUX</a> Team</li>
+				<li>Being part of the <a href="http://liftux.com/"  target="_blank">LiftUX</a> team</li>
 		    </ul>
-
 		    <h2>
 				<a href="http://www.ataylor.me"  target="_blank">ataylor.me</a> | <a href="http://twitter.com/ataylorme"  target="_blank">@ataylorme</a>
 		    </h2>
-
 		</section>
 		<section>
 		    <h1>Disclaimer</h1>
-
 		    <h3>In addition to being for an OSX environment<br /> this talk also assumes familiarity with:</h3>
 		    <ul>
 				<li>custom WordPress development</li>
 				<li>JavaScript</li>
 				<li>the command line</li>
 		    </ul>
-
 		    <p>
 				<small><a href="http://omcfarlane.co.uk/install-gulp-js-windows/"  target="_blank">The steps on Windows are supposedly very similar</a> but I haven't tested them.</small>
 			</p>
 		</section>
 		<section>
-		    <h1>gulp Runs On Node.js</h1>
-
+			<h1>Sample files and demo</h1>
+			<p>I built these slides as a WordPress child theme for twentyfourteen</p>
+			<p>using gulp and put <a href="https://github.com/ataylorme/gulp-talk-2014" target="_blank">the source files on GitHub</a></p>
+		</section>
+		<section>
+		    <h1>gulp runs on Node.js</h1>
 		    <h3>
 				You can install Node and npm (Node package manager)<br />
 				from <a href="http://nodejs.org/"  target="_blank">http://nodejs.org/</a>
 		    </h3>
-
 		    Or with <a href="http://brew.sh/"  target="_blank">homebrew</a> on OSX <code class="shell">$brew install node</code>
 		</section>
 		<section>
-		    <h1>What is gulp?</h1>
-
+		    <h1>What Is gulp?</h1>
 		    <h3>
 				gulp is a streaming JavaScript task runner built on Node.js
 		    </h3>
-
 		    <h2>Is it "gulp" or "Gulp"?</h2>
-
 		    <h3>gulp is always lowercase.</h3>
 		</section>
 		<section>
 		    <h1>Wait, what is a<br /> JavaScript task runner?</h1>
-
 		    <h2>(and why should I care)?</h2>
-
 		    <h3>In a word: automation</h3>
-
 		    <p>All of the mundane, repetative development tasks can be handled by a task runner</p>
-
 		</section>
 		<section>
 		    <h1>Why gulp and not Grunt?</h1>
-
 		    <h2>or (insert other task runner)?</h2>
-
 		    <ul>
 				<li>Streams - it leverages the power of Node streams for speed</li>
 				<li>Code over configuration</li>
 				<li>Easy to understand - it's just a JavaScript file</li>
 				<li>It's the first one I tried, and I liked it</li>
+				<li>Use whatever you like, gulp is just my preference</li>
 		    </ul>
 		</section>
 		<section>
 		    <h1>What is the streaming part?</h1>
-
 		    <h3>gulp takes in file streams, pipes them to a modifier, repeats if necessary, and then outputs the new file(s)</h3>
-
 		    <blockquote>
 				Streams are readable, writable, or both.
 		    </blockquote>
-
 		    <a href="http://nodejs.org/api/stream.html#stream_stream"  target="_blank">
 				See the gulp API docs for more info
 		    </a>
 		</section>
 		<section>
+			<h1>Think of gulp like a factory</h1>
+			<ul>
+				<li>Some pieces, like SASS, JavaScript and images go in</li>
+				<li>Those pieces get modified and assembled</li>
+				<li>Out comes a finished product, compiled build files in our case</li>
+			</ul>
+		</section>
+		<section>
 		    <h1>Can you give me an example?</h1>
-
 		    <h3>gulp watches a Sass file (or glob of files) and on save:</h3>
-
 		    <ul>
 				<li>Compiles Sass and logs errors</li>
 				<li>Adds CSS3 browser prefixes</li>
@@ -139,7 +130,7 @@
 		    </ul>
 		</section>
 		<section>
-			<h1>gulp Methods</h1>
+			<h1>gulp methods</h1>
 			<p>There aren't many.</p>
 			<p>All other functionality comes from:</p>
 			<ul>
@@ -150,11 +141,8 @@
 		</section>
 		<section>
 		    <h1>gulp.task</h1>
-
 		    <h3><code>gulp.task(name, [dependencies], function(cb))</code></h3>
-
 		    <h3>Registers a function as a task, with optional dependencies</h3>
-
 		    <pre><code class="javascript">
 gulp.task('sass', function() {
 	//Do some stuff
@@ -163,62 +151,50 @@ gulp.task('sass', function() {
 		</section>
 		<section>
 		    <h1>gulp.watch</h1>
-
 		    <h3><code>gulp.watch(glob, function(cb))</code></h3>
-
-		    <h3>Runs a function (task) when a file that matches the glob changes</h3>
-
-		    <pre><code class="javascript">gulp.watch(imgSrc, ['images/**/*.{png,jpg,jpeg,gif}']);</code></pre>
+		    <h3>Runs a task when files that matches the glob change</h3>
+		    <pre><code class="javascript">
+gulp.watch(
+	'images/**/*.{png,jpg,jpeg,gif}',
+	['imageTask']
+);
+			</code></pre>
 		</section>
 		<section>
 		    <h1>gulp.src</h1>
-
 		    <h3><code>gulp.src(glob);</code></h3>
-
-		    <h3>Returns a readable stream starts emitting files that match</h3>
-
+		    <h3>Returns a readable stream and starts emitting files that match</h3>
 		    <p>The matched files are then piped to actions or other streams</p>
-
 		    <pre><code class="javascript">
+// specify .js extension to avoid unwanted files, like .DS_STORE
 gulp.src('js/**/*.js')
 	.pipe(/* some task*/);
 		    </code></pre>
 		</section>
 		<section>
 		    <h1>gulp.dest</h1>
-
 		    <h3><code>gulp.dest(directory);</code></h3>
-
 		    <h3>Returns a writable stream that outputs<br />piped files to the file system</h3>
-
 		    <p><small>Relative path from <code>gulpfile.js</code></small></p>
-
 		    <pre><code class="javascript">
 gulp.src('js/**/*.js')
 	.pipe(/* some task*/)
-	.pipe(gulp.dest('build/js'));
+	.pipe(gulp.dest('assets/js'));
 		    </code></pre>
 		</section>
 		<section>
-		    <h1>gulp Plugins</h1>
-
+		    <h1>gulp plugins</h1>
 		    <p>gulp is good at reading/writing files but to modify them we need plugins</p>
-
 		    <h3>gulp plugins always include the <code>gulpplugin</code> keyword.</h3>
-
 		    <p><a href="http://gratimax.github.io/search-gulp-plugins/"  target="_blank">Search gulp plugins</a> or <a href="https://npmjs.org/browse/keyword/gulpplugin"  target="_blank">view all gulp plugins</a>.</p>
 		</section>
 		<section>
-		    <h1>Create a package.json file</h1>
-
+		    <h1>Node needs a package.json file</h1>
 		    <h3>
 			I suggest reading the <a href="https://www.npmjs.org/doc/package.json.html"  target="_blank">package.json official description</a>
 		    </h3>
-
 		    <p>The two items <strong>required</strong> by Node are name and version</p>
-
-		    <blockquote>Together they form a unique identifier</blockquote>
-
+		    <p>Together they form a unique identifier</p>
 		    <pre><code>
 {
 	"name": "gulp-talk-2014",
@@ -227,10 +203,8 @@ gulp.src('js/**/*.js')
 		    </code></pre>
 		</section>
 		<section>
-		    <h1>Adding Plugins To package.json</h1>
-
+		    <h1>Adding plugins to package.json</h1>
 		    <h3>gulp Plugins Are Defined Under <code>devDependencies</code></h3>
-
 		    <pre><code class="json">
 {
 	"name": "gulp-talk-2014",
@@ -242,31 +216,23 @@ gulp.src('js/**/*.js')
 		    </code></pre>
 		</section>
 		<section>
-		    <h1>Other Items</h1>
-
+		    <h1>Other items</h1>
 		    <h3>Author, Repository, And More Can Be Optionally Added</h3>
-
 		    <a href="<?php bloginfo('stylesheet_directory'); ?>/package.json" target="_blank">The package.json used for this talk</a> is a good example
 		</section>
 		<section>
 		    <h1>
-				Installing Plugins
+				Installing plugins
 		    </h1>
-
 		    <h2>Use <code class="shell">$npm install</code></h2>
-
 		    <h3>
 				This downloads plugin files to the <code>node_modules</code> directory.
 		    </h3>
-
 		    <p>
 			<small>Probably a good idea to ignore this directory in version control</small>
 		    </p>
-
 		    <p>If a plugin is missing from <code>package.json</code></p>
-
 		    <p>you can install the plugin using </p>
-
 		    <p><code class="shell">$npm installl --save-dev [plugin-name]</code></p>
 		</section>
 		<section>
@@ -278,7 +244,7 @@ gulp.src('js/**/*.js')
 			<p>We will get to the contents in a minute</p>
 		</section>
 		<section>
-			<h1>Loading Plugins</h1>
+			<h1>Loading plugins</h1>
 			<pre><code class="javascript">
 var gulp = require('gulp'),
 	sass = require('gulp-sass'),
@@ -289,19 +255,18 @@ var gulp = require('gulp'),
 			</code></pre>
 		</section>
 		<section>
-			<h1>There's A Plugin For That...</h1>
-			<h3>Specifically: <a href="https://www.npmjs.org/package/gulp-load-plugins" target="_blank">gulp-load-plugins</a></h3>
+			<h1>There's a plugin for that</h1>
+			<h3><a href="https://www.npmjs.org/package/gulp-load-plugins" target="_blank">gulp-load-plugins</a></h3>
 			<pre><code class="javascript">
 // stash all gulp plugins in $
 var gulpLoadPlugins = require('gulp-load-plugins');
 var $ = gulpLoadPlugins();
-
 // or the shorthand
 var $ = require('gulp-load-plugins')();
 			</code></pre>
 		</section>
 		<section>
-			<h1>Error Handler</h1>
+			<h1>Error handler</h1>
 			<p><a href="https://github.com/greypants/gulp-starter/blob/master/gulp/util/handleErrors.js"  target="_blank">Source</a></p>
 			<pre><code class="javascript">
 var handleErrors = function () {
@@ -310,14 +275,13 @@ var handleErrors = function () {
 		title: "Compile Error",
 		message: "<%= error.message %>"
 	}).apply(this, arguments);
-
 	// Keep gulp from hanging on this task
 	this.emit('end');
 };
 			</code></pre>
 		</section>
 		<section>
-			<h1>Define Source Files</h1>
+			<h1>Define source files</h1>
 			<pre><code class="javascript">
 var srcFiles = {
 	img: 'src/images/**/*.{png,jpg,jpeg,gif,svg}',
@@ -325,12 +289,12 @@ var srcFiles = {
 	jsMain: 'src/js/gulp-slides.js',
 	jsVendor: 'src/js/vendor/**/*.js',
 	fonts: 'src/fonts/**/*',
-	php: ['**/*.php']
+	php: '**/*.php'
 }
 			</code></pre>
 		</section>
 		<section>
-			<h1>Define Destination Paths</h1>
+			<h1>Define destination paths</h1>
 			<pre><code class="javascript">
 var destPaths = {
 	img: 'assets/images',
@@ -343,7 +307,7 @@ var destPaths = {
 			</code></pre>
 		</section>
 		<section>
-			<h1>Font Tasks</h1>
+			<h1>Font task</h1>
 			<p>Just a pass through so files exist in the destination directory</p>
 			<pre><code class="javascript">
 gulp.task('fonts', function () {
@@ -354,12 +318,12 @@ gulp.task('fonts', function () {
 			</code></pre>
 		</section>
 		<section>
-			<h1>Sass Task</h1>
+			<h1>Sass task</h1>
 			<pre><code class="javascript">
 gulp.task('sass', function () {
 	return gulp.src(srcFiles.scss)
 		.pipe(sass({
-		// define realtive image path for "image-url"
+		// define relative image path for "image-url"
 		imagePath: '../images'
 	}))
 	// send Sass errors to console
@@ -388,7 +352,7 @@ gulp.task('sass', function () {
 			</code></pre>
 		</section>
 		<section>
-			<h1>Image Task</h1>
+			<h1>Image task</h1>
 			<pre><code class="javascript">
 gulp.task('images', function () {
 	return gulp.src(srcFiles.img)
@@ -408,7 +372,7 @@ gulp.task('images', function () {
 			</code></pre>
 		</section>
 		<section>
-			<h1>Vendor Scripts</h1>
+			<h1>Vendor scripts task</h1>
 			<pre><code class="javascript">
 gulp.task('vendorScripts', function () {
 	// don't do anything to vendor scripts, just save 'em
@@ -419,11 +383,11 @@ gulp.task('vendorScripts', function () {
 			</code></pre>
 		</section>
 		<section>
-			<h1>Main Script</h1>
+			<h1>Main script task</h1>
 			<pre><code class="javascript">
 gulp.task('mainScript', function () {
 	return gulp.src(srcFiles.jsMain)
-	// minfiy
+	// minify
 	.pipe(uglify())
 	// rename to "-min"
 	.pipe(rename({
@@ -439,8 +403,8 @@ gulp.task('mainScript', function () {
 			</code></pre>
 		</section>
 		<section>
-			<h1>Assets Task</h1>
-			<p>Fires Off Existing Tasks, Asynchronously</p>
+			<h1>Assets task</h1>
+			<p>Fires off existing tasks asynchronously</p>
 			<pre><code class="javascript">
 	gulp.task('assets', [
 		'fonts',
@@ -452,24 +416,20 @@ gulp.task('mainScript', function () {
 			</code></pre>
 		</section>
 		<section>
-			<h1>Watch Task</h1>
+			<h1>Watch task</h1>
 			<pre><code class="javascript">
 gulp.task('watch', function () {
-
 	// Watch main JS file and run mainScript task
 	gulp.watch(srcFiles.jsMain, ['mainScript']);
-
 	// Watch .scss files and run sass task
 	gulp.watch(srcFiles.scss, ['sass']);
-
 	// Watch image files and run image task
 	gulp.watch(srcFiles.img, ['images']);
-
 });
 			</code></pre>
 		</section>
 		<section>
-			<h1>Browser-sync Task</h1>
+			<h1>Browser-sync task</h1>
 			<p>See <a href="http://www.browsersync.io/docs/gulp/" target="_blank">browsersync.io</a></p>
 			<pre><code class="javascript">
 gulp.task('browserSync', ['assets'], function () {
@@ -479,7 +439,6 @@ gulp.task('browserSync', ['assets'], function () {
 		// Like PHP files
 		srcFiles.php
 	];
-
 	// initialize browsersync
 	browserSync.init(watchFiles, {
 		// config options, such as port, go here
@@ -489,16 +448,16 @@ gulp.task('browserSync', ['assets'], function () {
 			</code></pre>
 		</section>
 		<section>
-			<h1>Browser-sync Client</h1>
+			<h1>Browser-sync client</h1>
 			<p>The Browser-sync server is running.</p>
 			<p>Now we need to connect the client.</p>
-			<p>If you use Browser-sync's proxy this is automatic.</p>
-			<p>WordPress links don't follow the proxy.</p>
+			<p>If you use Browser-sync's proxy this is automatic but...</p>
+			<h2>WordPress links don't follow the proxy.</h2>
 		</section>
 		<section>
-			<h1>So What Do We Do?</h1>
-			<p>I prefer to manually insert the client JS.</p>
-			<p>You're Terminal Will Have Something Like This</p>
+			<h1>So what do we do?</h1>
+			<p>I prefer to manually insert the JavaScript.</p>
+			<p>Your terminal will have something like this</p>
 			<pre><code class="html">
 &lt;script type='text/javascript'&gt;//&lt;![CDATA[
 	document.write("&lt;script async src='//HOST:3000/browser-sync-client.1.3.7.js'&gt;&lt;\/script&gt;".replace(/HOST/g, location.hostname));
@@ -506,19 +465,19 @@ gulp.task('browserSync', ['assets'], function () {
 			</code></pre>
 		</section>
 		<section>
-			<h1>Isn't That a Pain Too?</h1>
+			<h1>Isn't that a pain too?</h1>
 			<p>It's pretty easy using</p>
-			<p>the <a href="http://wordpress.org/plugins/browser-sync-filter/" target="_blank">WordPress plugin I authored</a></p>
+			<p>the <a href="http://wordpress.org/plugins/browser-sync-filter/" target="_blank">WordPress plugin I created</a></p>
 			<p>Install the plugin and add </p>
 			<p><code>define('DEVENV', true);</code> to <code>wp-config.php</code></p>
 		</section>
 		<section>
-			<h1>Does Browser-sync<br />Work With Vagrant?</h1>
-			<h3>Yes</h3>
-			<p>Check out <a href="http://quick.as/q0rs9jz" target="_blank">this screencast</a> for details</p>
+			<h1>Does Browser-sync<br />work with vagrant?</h1>
+			<h2>Yes</h2>
+			<h3>Check out <a href="http://quick.as/q0rs9jz" target="_blank">this screencast</a> for details</h3>
 		</section>
 		<section>
-			<h1>Default Task</h1>
+			<h1>Default task</h1>
 			<h3>Runs when you type <code class="shell">$gulp</code></h3>
 			<pre><code class="javascript">
 // Just going to run other tasks
@@ -529,7 +488,7 @@ gulp.task('default', ['watch', 'browserSync']);
 			</p>
 		</section>
 		<section>
-			<h1>Clean Task</h1>
+			<h1>Clean task</h1>
 			<p>gulp doesn't delete files</p>
 			<p>So we wipe out the <code>assets</code> directory</p>
 			<pre><code class="javascript">
@@ -540,12 +499,11 @@ gulp.task('clean', function (cb) {
 			</code></pre>
 		</section>
 		<section>
-			<h1>Build Task</h1>
+			<h1>Build task</h1>
 			<p>After deleting assets</p>
 			<p>We rebuild them</p>
-			<p>Run with <code class="shell">$gulp build</code></p>
+			<p>with <code class="shell">$gulp build</code></p>
 			<pre><code class="javascript">
-// Build task
 gulp.task('build', function (cb) {
 	$.runSequence(
 		'clean',
@@ -555,12 +513,7 @@ gulp.task('build', function (cb) {
 			</code></pre>
 		</section>
 		<section>
-			<h1>Sample Files</h1>
-			<p>I built these slides as a WordPress theme</p>
-			<p>using gulp and put <a href="https://github.com/ataylorme/gulp-talk-2014" target="_blank">the source files on GitHub</a></p>
-		</section>
-		<section>
-			<h1>More Than WordPress</h1>
+			<h1>More than WordPress</h1>
 			<p>There is a lot more you can do with gulp</p>
 			<ul>
 				<li>Creating Static HTML Pages</li>
@@ -571,27 +524,31 @@ gulp.task('build', function (cb) {
 			</ul>
 		</section>
 		<section>
-			<h1>Spawning Child Processes</h1>
-			<p><a href="http://nodejs.org/api/child_process.html" target="_blank">Child processes comes from Node</a>, not gulp, but sure is useful</p>
-			<p>Who doesn't like  <code>exec</code>?</p>
+			<h1>Bonus: spawning child processes</h1>
+			<h3>Child processes allow you to run commands outside of Node</h3>
+			<p><a href="http://nodejs.org/api/child_process.html" target="_blank">Child processes comes from Node</a>, not gulp</p>
+			<p>but gulp can run anything Node can</p>
 		</section>
 		<section>
-			<h1>Maybe you have a Jekyll blog?</h1>
-			<p>and want to <a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md#async-task-support" target="_blank">add it to your build task</a></p>
+			<h1>Spawning PhantomJS</h1>
+			<p>I wanted a static version of these slides so I setup a <a href="http://phantomjs.org/" target="_blank">PhantomJS</a> process</p>
+			<p>Then <a href="https://github.com/gulpjs/gulp/blob/master/docs/API.md#async-task-support" target="_blank">spawned a child</a> process and added it to a task</p>
 			<pre><code class="javascript">
 var spawn = require('child_process').spawn;
-gulp.task('generateHTML', ['assets'], function (cb) {
-
-	var phantomjs = spawn('phantomjs', ['static-slides.js'], {stdio: 'inherit'});
-
-	phantomjs.on('exit', cb);
-
+gulp.task('generateHTML', function (cb) {
+	// calls "phantomjs static-slides.js"
+	// you will need to customize static-slides.js for your needs
+    var phantomjs = spawn('phantomjs', ['static-slides.js'], {
+        stdio: 'inherit'
+    });
+	// end the task when phantom exits
+    phantomjs.on('exit', cb);
 });
 			</code></pre>
 		</section>
 		<section>
 			<h1>Conclusion</h1>
-			<p>Try gulp out, explore plugins, and speed up your development</p>
+			<p>Try gulp, explore plugins and speed up your development workflow</p>
 			<p>If you do something cool let me know!</p>
 			<a href="http://www.ataylor.me" target="_blank">ataylor.me</a> | <a href="http://twitter.com/ataylorme" target="_blank">@ataylorme</a>
 		</section>
