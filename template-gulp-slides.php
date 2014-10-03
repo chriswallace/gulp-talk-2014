@@ -136,7 +136,8 @@
 			<ul>
 				<li>JavaScript</li>
 				<li>Node</li>
-				<li>gulp Plugins</li>
+				<li>npm modules</li>
+				<li>gulp plugins</li>
 			</ul>
 		</section>
 		<section>
@@ -193,8 +194,9 @@ gulp.src('js/**/*.js')
 		    <h3>
 			I suggest reading the <a href="https://www.npmjs.org/doc/package.json.html"  target="_blank">package.json official description</a>
 		    </h3>
-		    <p>The two items <strong>required</strong> by Node are name and version</p>
+		    <p>The two items <strong>required</strong> for published modules are name and version</p>
 		    <p>Together they form a unique identifier</p>
+			<p>For local development these aren't necessary but it's good practice</p>
 		    <pre><code>
 {
 	"name": "gulp-talk-2014",

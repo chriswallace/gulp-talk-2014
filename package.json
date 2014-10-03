@@ -4,7 +4,7 @@
   "description": "Slides For gulp.js Talk At WordCamp DFW 2014",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ataylorme/gulp-talk-2014.git"
+    "url": "ataylorme/gulp-talk-2014"
   },
   "author": {
     "name": "Andrew Taylor",
