@@ -33,7 +33,7 @@
 				<li>WordPress</li>
 				<li>Homebrewing  &amp; craft beer</li>
 				<li>The Pacific Northwest</li>
-				<li>Being part of the <a href="http://liftux.com/"  target="_blank">LiftUX</a> team</li>
+				<li>Being part of the <a href="http://liftux.com/"  target="_blank">Lift</a> team</li>
 		    </ul>
 		    <h2>
 				<a href="http://www.ataylor.me"  target="_blank">ataylor.me</a> | <a href="http://twitter.com/ataylorme"  target="_blank">@ataylorme</a>

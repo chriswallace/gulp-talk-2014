@@ -1,23 +1,47 @@
 <?php
-if( IS_STATIC ){
-   add_action( 'after_setup_theme', 'gulp_talk_remove_feeds' );
-}
-
 /*
-* Remove unused links
+* Items for static HTML build
 */
-if( !function_exists('gulp_talk_remove_feeds') ):
+if( IS_STATIC ):
+   /*
+   * Remove unused links
+   */
+   if( !function_exists('gulp_talk_remove_feeds') ):
+   
+	function gulp_talk_remove_feeds() {
+	   remove_action( 'wp_head', 'feed_links_extra', 3 );
+	   remove_action( 'wp_head', 'feed_links', 2 );
+	   remove_action('wp_head', 'rel_canonical');
+	   remove_action('wp_head', 'wp_generator');
+	   remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
+	   remove_action('wp_head', 'rsd_link');
+	   remove_action('wp_head', 'wlwmanifest_link');
+	}
+	
+   endif;
 
- function gulp_talk_remove_feeds() {
-	remove_action( 'wp_head', 'feed_links_extra', 3 );
-	remove_action( 'wp_head', 'feed_links', 2 );
-	remove_action('wp_head', 'rel_canonical');
-	remove_action('wp_head', 'wp_generator');
-	remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
-	remove_action('wp_head', 'rsd_link');
-	remove_action('wp_head', 'wlwmanifest_link');
- }
- 
+   add_action( 'after_setup_theme', 'gulp_talk_remove_feeds' );
+   
+   /*
+   * Google Analytics
+   */
+   if( !function_exists('gulp_talk_analytics') ):
+	  function gulp_talk_analytics(){
+		 ?>
+		 <script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-38647104-1', 'auto');
+			ga('require', 'displayfeatures');
+			ga('send', 'pageview');
+		 </script>
+		 <?php
+	  }
+   endif;
+   
+   add_action('wp_footer', 'gulp_talk_analytics', 99);
 endif;
 
 add_action('wp_enqueue_scripts', 'gulp_talk_register_scripts_styles');
